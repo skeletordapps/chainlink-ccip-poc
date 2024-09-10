@@ -43,6 +43,16 @@ WALLET_C=0x
 $ forge test && forge coverage
 ```
 
+### Coverage
+Ran 1 test suite in 21.46s (21.46s CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
+| File           | % Lines         | % Statements    | % Branches    | % Funcs        |
+|----------------|-----------------|-----------------|---------------|----------------|
+| src/Answer.sol | 100.00% (22/22) | 100.00% (28/28) | 50.00% (1/2)  | 83.33% (5/6)   |
+| src/Ask.sol    | 100.00% (15/15) | 100.00% (20/20) | 50.00% (1/2)  | 100.00% (5/5)  |
+| src/Points.sol | 100.00% (1/1)   | 100.00% (1/1)   | 100.00% (0/0) | 100.00% (1/1)  |
+| src/Tiers.sol  | 60.00% (9/15)   | 54.55% (12/22)  | 100.00% (1/1) | 75.00% (3/4)   |
+| Total          | 88.68% (47/53)  | 85.92% (61/71)  | 60.00% (3/5)  | 87.50% (14/16) |
+
 ### Contracts
 ```Tier.sol```
 Defines tiers on the Base Chain, each with a name, minimum points, and maximum points.
