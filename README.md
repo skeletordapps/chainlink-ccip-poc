@@ -66,3 +66,8 @@ Deployed on Optimism, this contract facilitates sending a wallet address to the 
 ```Answer.sol```
 Receives requests from other chains (in this case, Optimism) to check the tier of a specified wallet address on the Base Chain.
 
+### Additional Notes:
+- Remember to replace the placeholder wallet addresses in the ```.env``` file with your own ```testnet addresses``` if you plan to use them in the tests.
+- Ensure that you have sufficient testnet ```funds``` in your wallets to cover gas costs during testing.
+- This poc only aims to test crosschain messages sending a question and obtaining an answer, that's why we don't have a full coverage for all aspects.
+
