@@ -1,66 +1,43 @@
-## Foundry
+## Chainlink CCIP - Proof of Concept
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Send and receive messages crosschain - Base <> Optimism (testnets)
 
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
+### Clone
 ```shell
-$ forge build
+$ git clone git@github.com:skeletordapps/chainlink-ccip-poc.git
+```
+
+### Run
+```shell
+$ foundryup && forge install
+```
+
+### Create .env file
+```shell
+BASE_SEPOLIA_RPC_URL="https://sepolia.base.org"
+OPTIMISM_SEPOLIA_RPC_URL="https://sepolia.optimism.io"
+
+BASE_SEPOLIA_CHAIN_SELECTOR=10344971235874465080
+OPTIMISM_SEPOLIA_CHAIN_SELECTOR=5224473277236331295
+
+BASE_SEPOLIA_ROUTER_ADDRESS=0xD3b06cEbF099CE7DA4AcCf578aaebFDBd6e88a93
+OPTIMISM_SEPOLIA_ROUTER_ADDRESS=0x114A20A10b43D4115e5aeef7345a1A71d2a60C57
+
+BASE_SEPOLIA_LINK_ADDRESS=0xE4aB69C077896252FAFBD49EFD26B5D171A32410
+OPTIMISM_SEPOLIA_LINK_ADDRESS=0xE4aB69C077896252FAFBD49EFD26B5D171A32410
+
+WALLET_A=0x
+WALLET_B=0x
+WALLET_C=0x
 ```
 
 ### Test
-
 ```shell
-$ forge test
+$ forge test && forge coverage
 ```
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### Contracts
+- ***Tier.sol:*** used on base testnet as a list of tiers with name and min/max points.
+- ***Points.sol:*** used on base testnet as a list of wallets and it's points to be compared on each tier in order to know the correct tier.
+- ***Ask.sol:*** used on optimism to send a wallet and obtain the tier in base network
+- ***Answer.sol:*** receives the wallet to be checked from other chain
