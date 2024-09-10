@@ -4,21 +4,32 @@ pragma solidity 0.8.27;
 import {ITiers} from "./interfaces/ITiers.sol";
 import {IPoints} from "./interfaces/IPoints.sol";
 
+/**
+ * @title Tiers
+ * @notice It provides functions to add new tiers, retrieve a tier based on a wallet's points,
+ * and get tier information by its name.
+ * @dev This contract manages tiers based on wallet points.
+ */
 contract Tiers {
     IPoints iPoints;
     uint256 public counter;
 
     mapping(uint256 index => ITiers.Tier tier) public tiers;
 
+    /**
+     * @dev Constructor initializes the contract with the `Points` contract address.
+     * @param _points The address of the `Points` contract.
+     */
     constructor(address _points) {
         iPoints = IPoints(_points);
     }
 
     /**
-     * @notice Adds a new tier.
-     * @param name: tier name.
-     * @param min: min amount to be part of tier.
-     * @param max: max amount to be part of tier.
+     * @notice Adds a new tier to the contract.
+     * @dev Only the contract owner can add new tiers.
+     * @param name The name of the new tier.
+     * @param min The minimum points required to be part of the tier.
+     * @param max The maximum points allowed for the tier.
      */
     function addTier(string memory name, uint256 min, uint256 max) external {
         uint256 index = counter + 1;
@@ -27,9 +38,9 @@ contract Tiers {
     }
 
     /**
-     * @notice Gets the tier a wallet belongs to based on Sam NFT holdings, lockups, and LP staking.
-     * @param wallet: Address of the wallet to check.
-     * @return tier: The tier information for the wallet.
+     * @notice Gets the tier a wallet belongs to based on its points.
+     * @param wallet The address of the wallet to check.
+     * @return The tier information for the wallet.
      */
     function getTier(address wallet) public view returns (ITiers.Tier memory) {
         // Get wallet points
@@ -50,8 +61,8 @@ contract Tiers {
 
     /**
      * @notice Gets the tier information by its name.
-     * @param name: Name of the tier to get.
-     * @return tier: The tier information matching the name.
+     * @param name The name of the tier to get.
+     * @return The tier information matching the name.
      */
     function getTierByName(string memory name) public view returns (ITiers.Tier memory) {
         bytes32 nameHash = keccak256(abi.encodePacked(name));
