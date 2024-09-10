@@ -1,18 +1,23 @@
 ## Chainlink CCIP - Proof of Concept
 
-Send and receive messages crosschain - Base <> Optimism (testnets)
+### Description:
+This project demonstrates cross-chain message passing using Chainlink CCIP between the Base Chain (Sepolia testnet) and Optimism (Sepolia testnet). It allows sending a wallet address from Optimism to Base and retrieving the associated tier information.
 
-### Clone
+### Prerequisites:
+- Node.js (https://nodejs.org/)
+- Foundry (https://github.com/foundry-rs/foundry)
+
+### Clone the repository:
 ```shell
 $ git clone git@github.com:skeletordapps/chainlink-ccip-poc.git
 ```
 
-### Run
+### Install Foundry dependencies:
 ```shell
 $ foundryup && forge install
 ```
-
-### Create .env file
+### Configuration:
+Create a ```.env``` file in the project root directory with the following environment variables:
 ```shell
 BASE_SEPOLIA_RPC_URL="https://sepolia.base.org"
 OPTIMISM_SEPOLIA_RPC_URL="https://sepolia.optimism.io"
@@ -31,13 +36,23 @@ WALLET_B=0x
 WALLET_C=0x
 ```
 
+**Important:** Replace the placeholder wallet addresses ```(WALLET_A, WALLET_B, WALLET_C)``` with your actual testnet wallet addresses if you intend to use them in the tests.
+
 ### Test
 ```shell
 $ forge test && forge coverage
 ```
 
 ### Contracts
-- ***Tier.sol:*** used on base testnet as a list of tiers with name and min/max points.
-- ***Points.sol:*** used on base testnet as a list of wallets and it's points to be compared on each tier in order to know the correct tier.
-- ***Ask.sol:*** used on optimism to send a wallet and obtain the tier in base network
-- ***Answer.sol:*** receives the wallet to be checked from other chain
+```Tier.sol```
+Defines tiers on the Base Chain, each with a name, minimum points, and maximum points.
+
+```Points.sol```
+Manages a list of wallets and their corresponding points on the Base Chain. This contract is used to determine the tier associated with a wallet's points.
+
+```Ask.sol```
+Deployed on Optimism, this contract facilitates sending a wallet address to the Base Chain to retrieve tier information.
+
+```Answer.sol```
+Receives requests from other chains (in this case, Optimism) to check the tier of a specified wallet address on the Base Chain.
+
